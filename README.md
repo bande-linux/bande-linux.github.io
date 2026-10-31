@@ -1,6 +1,6 @@
-# unbound-linux.github.io
+# bande-linux.github.io
 
-The Unbound website, served by GitHub Pages at <https://unbound-linux.github.io>. It is plain
+The Bande website, served by GitHub Pages at <https://bande-linux.github.io>. It is plain
 HTML and CSS: `template.html` wraps each page in `pages/`, and `build.sh` renders them into
 `_site/`.
 
@@ -13,7 +13,7 @@ have an `apt/` directory.
 ./build.sh
 ```
 
-It reads the newest release of `unbound-linux/images` with `gh api` (set `IMAGES_REPO` to read
+It reads the newest release of `bande-linux/images` with `gh api` (set `IMAGES_REPO` to read
 another repository) and fills in the download cards. With no release it renders "coming soon".
 To render a fake release, pass a release JSON; its assets are read from `assets/` next to it:
 
@@ -27,11 +27,11 @@ Preview with `python3 -m http.server -d _site`.
 
 | Asset | Used for |
 |---|---|
-| `unbound-os-apple-<date>.zip` | Mac mini M2 card; the installer downloads it |
+| `bande-os-apple-<date>.zip` | Mac mini M2 card; the installer downloads it |
 | `installer-<version>.tar.gz` | the Mac installer that `install` downloads |
 | `installer_data.json` | served at `/installer_data.json`, with `package` made an absolute release URL |
-| `unbound-os-<date>-amd64.iso` | PC card |
-| `unbound-os-<date>-arm64.iso` | arm64 card |
+| `bande-os-<date>-amd64.iso` | PC card |
+| `bande-os-<date>-arm64.iso` | arm64 card |
 
 Sizes and SHA256 come from the release's asset metadata. The Mac card stays "coming soon" until
 the zip, the installer tarball and `installer_data.json` are all in the same release.
@@ -43,11 +43,11 @@ the zip, the installer tarball and `installer_data.json` are all in the same rel
 `/installer/latest`, so it always matches the image it serves:
 
 ```bash
-curl -L https://unbound-linux.github.io/install | sh
+curl -L https://bande-linux.github.io/install | sh
 ```
 
 ## Deploy
 
 `.github/workflows/pages.yml` builds and deploys on every push to `main` and on
 `workflow_dispatch`, which the images workflow sends after it publishes. The default token can
-read `unbound-linux/images` only while that repository is public.
+read `bande-linux/images` only while that repository is public.

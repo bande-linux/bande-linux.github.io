@@ -1,5 +1,5 @@
 #!/bin/bash
-# Renders the site into _site/ from the newest unbound-linux/images release.
+# Renders the site into _site/ from the newest bande-linux/images release.
 # Usage: build.sh [release.json]
 # With a file, it is used instead of the GitHub API, and the release's assets
 # are read from the assets/ directory next to it.
@@ -7,8 +7,8 @@ set -euo pipefail
 
 here=$(cd "$(dirname "$0")" && pwd)
 out=${OUT:-$here/_site}
-repo=${IMAGES_REPO:-unbound-linux/images}
-site=https://unbound-linux.github.io
+repo=${IMAGES_REPO:-bande-linux/images}
+site=https://bande-linux.github.io
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 
@@ -118,9 +118,9 @@ mkdir -p "$out"
 cp -r "$here/style.css" "$here/img" "$out/"
 touch "$out/.nojekyll"
 
-mac_zip=$(find_asset 'unbound-os-apple-*.zip')
-amd64_iso=$(find_asset 'unbound-os-*-amd64.iso')
-arm64_iso=$(find_asset 'unbound-os-*-arm64.iso')
+mac_zip=$(find_asset 'bande-os-apple-*.zip')
+amd64_iso=$(find_asset 'bande-os-*-amd64.iso')
+arm64_iso=$(find_asset 'bande-os-*-arm64.iso')
 installer=$(find_asset 'installer-*.tar.gz')
 installer_data=$(find_asset installer_data.json)
 
@@ -153,7 +153,7 @@ fi
 pc_steps='  <ol>
     <li>Write the ISO to a USB stick with any image writer, such as GNOME Disks, balenaEtcher or Rufus.</li>
     <li>Boot the machine from the stick in UEFI mode.</li>
-    <li>The Debian installer sets up the disk and installs Unbound.</li>
+    <li>The Debian installer sets up the disk and installs Bande.</li>
   </ol>'
 
 {
@@ -163,7 +163,7 @@ pc_steps='  <ol>
   <pre><code>curl -L $site/install | sh</code></pre>
   <ol start=\"2\">
     <li>Follow the installer. It makes room next to macOS and downloads this image by itself.</li>
-    <li>Hold the power button at startup to choose Unbound.</li>
+    <li>Hold the power button at startup to choose Bande.</li>
   </ol>"
     card 'PC' 'amd64 (x86-64) machines with UEFI.' "$amd64_iso" "$pc_steps"
     card 'arm64' 'arm64 UEFI machines other than Macs.' "$arm64_iso" "$pc_steps"
@@ -172,9 +172,9 @@ pc_steps='  <ol>
 fill "$here/pages/download.html" @RELEASE@ "$work/release.html" > "$work/download.tmp"
 fill "$work/download.tmp" @CARDS@ "$work/cards.html" > "$work/download.html"
 
-render HOME 'Unbound' "$here/pages/index.html" "$out/index.html"
-render DOWNLOAD 'Download Unbound' "$work/download.html" "$out/download/index.html"
-render DEBIAN 'Unbound on Debian testing' "$here/pages/debian.html" "$out/debian/index.html"
+render HOME 'Bande' "$here/pages/index.html" "$out/index.html"
+render DOWNLOAD 'Download Bande' "$work/download.html" "$out/download/index.html"
+render DEBIAN 'Bande on Debian testing' "$here/pages/debian.html" "$out/debian/index.html"
 
 if [ -n "$tag" ]; then
     echo "Built $out from $repo $tag"

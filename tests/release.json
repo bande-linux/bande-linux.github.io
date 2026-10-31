@@ -1,0 +1,31 @@
+{
+  "tag_name": "2026-10-31",
+  "html_url": "https://github.com/unbound-linux/images/releases/tag/2026-10-31",
+  "published_at": "2026-10-31T06:12:44Z",
+  "assets": [
+    {
+      "name": "unbound-os-apple-20261031.zip",
+      "size": 1934622105,
+      "digest": "sha256:9f2c4e1a7b3d5f60812e4c9a0b7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d",
+      "browser_download_url": "https://github.com/unbound-linux/images/releases/download/2026-10-31/unbound-os-apple-20261031.zip"
+    },
+    {
+      "name": "unbound-os-20261031-amd64.iso",
+      "size": 812646400,
+      "digest": "sha256:0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9",
+      "browser_download_url": "https://github.com/unbound-linux/images/releases/download/2026-10-31/unbound-os-20261031-amd64.iso"
+    },
+    {
+      "name": "installer-v0.3.0.tar.gz",
+      "size": 4211812,
+      "digest": null,
+      "browser_download_url": "https://github.com/unbound-linux/images/releases/download/2026-10-31/installer-v0.3.0.tar.gz"
+    },
+    {
+      "name": "installer_data.json",
+      "size": 912,
+      "digest": "sha256:aa",
+      "browser_download_url": "https://github.com/unbound-linux/images/releases/download/2026-10-31/installer_data.json"
+    }
+  ]
+}

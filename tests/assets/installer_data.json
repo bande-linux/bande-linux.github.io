@@ -1,0 +1,34 @@
+{
+    "os_list": [
+        {
+            "name": "Unbound Linux (Debian 13, Mac mini M2, J473)",
+            "default_os_name": "Unbound Linux",
+            "boot_object": "unboot.bin",
+            "next_object": "unboot/boot.bin",
+            "package": "unbound-os-apple-20261031.zip",
+            "supported_fw": [
+                "13.5"
+            ],
+            "setup": true,
+            "partitions": [
+                {
+                    "name": "EFI",
+                    "type": "EFI",
+                    "size": "512MB",
+                    "format": "fat",
+                    "volume_id": "1234-ABCD",
+                    "copy_firmware": true,
+                    "copy_installer_data": true,
+                    "source": "esp"
+                },
+                {
+                    "name": "Root",
+                    "type": "Linux",
+                    "size": "8589934592B",
+                    "expand": true,
+                    "image": "root.img"
+                }
+            ]
+        }
+    ]
+}

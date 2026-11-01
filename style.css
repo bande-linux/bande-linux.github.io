@@ -174,9 +174,6 @@ pre {
   margin: 8px 0;
 }
 
-.choice { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.choice p { color: var(--muted); margin: 4px 0 0; }
-
 footer {
   max-width: 1080px;
   margin: 0 auto;
@@ -187,7 +184,7 @@ footer {
 }
 
 @media (max-width: 860px) {
-  .cards, .points, .choice { grid-template-columns: 1fr; }
+  .cards, .points { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {

@@ -4,25 +4,14 @@
 </section>
 
 <section class="steps">
-  <h2>1. Install the archive key</h2>
-<pre><code>wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb
-sudo apt install ./bande-archive-keyring.deb</code></pre>
-
-  <h2>2. Add the apt source</h2>
-<pre><code>echo "deb [signed-by=/usr/share/keyrings/bande-archive-keyring.pgp] https://bande-linux.github.io/apt rolling main" \
-  | sudo tee /etc/apt/sources.list.d/bande.list
+  <h2>1. Add the Bande archive</h2>
+<pre><code>cd /tmp
+wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
+     https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source.deb
+sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb
 sudo apt update</code></pre>
-  <p>On a Mac mini M2, use <code>rolling main apple</code>: the <code>apple</code> component carries the Apple Silicon kernel.</p>
 
-  <h2>3. Install</h2>
-  <div class="choice">
-    <div>
-      <pre><code>sudo apt install bande-desktop</code></pre>
-      <p>The desktop only. Pick <em>Bande</em> at your login screen.</p>
-    </div>
-    <div>
-      <pre><code>sudo apt install bande-os</code></pre>
-      <p>The whole system as on the install media: the desktop, its login screen and the system defaults that go with it.</p>
-    </div>
-  </div>
+  <h2>2. Install</h2>
+<pre><code>sudo apt install bande-desktop</code></pre>
+  <p>The whole system as on the install media: the desktop, its login screen, networking, sound and the everyday apps. If you already have a login screen such as GDM, apt asks which one to use. Add <code>--no-install-recommends</code> for just the desktop and a way to log in.</p>
 </section>

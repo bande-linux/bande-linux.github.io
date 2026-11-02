@@ -14,7 +14,7 @@ have an `apt/` directory.
 ```
 
 It reads the newest release of `bande-linux/images` with `gh api` (set `IMAGES_REPO` to read
-another repository) and fills in the download cards. With no release it renders "coming soon".
+another repository) and fills in the download page. With no release the page says that no media are published.
 To render a fake release, pass a release JSON; its assets are read from `assets/` next to it:
 
 ```bash
@@ -30,10 +30,10 @@ Preview with `python3 -m http.server -d _site`.
 | `bande-os-apple-<date>.zip` | Mac mini M2 card; the installer downloads it |
 | `installer-<version>.tar.gz` | the Mac installer that `install` downloads |
 | `installer_data.json` | served at `/installer_data.json`, with `package` made an absolute release URL |
-| `bande-os-<date>-amd64.iso` | PC card |
+| `bande-os-<date>-amd64.iso` | amd64 card |
 | `bande-os-<date>-arm64.iso` | arm64 card |
 
-Sizes and SHA256 come from the release's asset metadata. The Mac card stays "coming soon" until
+Sizes and SHA256 come from the release's asset metadata. The Mac card is left out until
 the zip, the installer tarball and `installer_data.json` are all in the same release.
 
 ## The Mac bootstrap

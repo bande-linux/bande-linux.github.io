@@ -1,0 +1,37 @@
+<h1>Mac mini M2</h1>
+<p>Bande runs on the Apple Mac mini M2 (2023, J473) with Debian's kernel and the Bande patches for Apple hardware. Hardware support is incomplete. Other Apple Silicon machines are not supported.</p>
+
+<h2>Kernel</h2>
+<p>The <a href="https://github.com/bande-linux/kernel">kernel repository</a> builds Debian testing's <code>linux</code> source with the Bande patches as the <code>apple-arm64-16k</code> flavour. A new build follows each new kernel in testing. The packages are published in the <code>apple</code> component of the APT repository (arm64 only).</p>
+<p><code>bande-os-apple</code> installs <code>bande-desktop</code> and this kernel, and pins Debian's own kernels, which do not run on this machine.</p>
+
+<h2>Installation</h2>
+<p>The Mac needs a boot chain installed from macOS. The installer for it is not published yet; see <a href="/download/">Download</a>. On a Mac mini M2 that already runs Debian testing, add the repository as described in <a href="/debian/">Install on Debian testing</a>, then run:</p>
+<pre><code>sudo apt install bande-os-apple</code></pre>
+
+<h2>Hardware status</h2>
+<p>Status with the development kernel (7.3) in November 2026. The published kernel follows Debian testing and can lag behind.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Area</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>HDMI output</td><td>Works</td></tr>
+    <tr><td>CPU frequency and idle states</td><td>Works</td></tr>
+    <tr><td>NVMe storage</td><td>Works</td></tr>
+    <tr><td>USB-A ports</td><td>Works</td></tr>
+    <tr><td>Power button, reboot, power off, sensors (SMC)</td><td>Works</td></tr>
+    <tr><td>Speakers</td><td>Works</td></tr>
+    <tr><td>Headphone jack</td><td>Works; not fully tested</td></tr>
+    <tr><td>GPU</td><td>Partial: Vulkan works; occasional faults</td></tr>
+    <tr><td>Display power off and on</td><td>Partial</td></tr>
+    <tr><td>Bluetooth</td><td>Partial: audio untested</td></tr>
+    <tr><td>USB-C</td><td>Partial: no data role; DisplayPort alternate mode not built</td></tr>
+    <tr><td>Thermal and fan</td><td>Partial: no fan control</td></tr>
+    <tr><td>Real-time clock</td><td>Partial: no wake alarm</td></tr>
+    <tr><td>Video decode</td><td>Not built</td></tr>
+    <tr><td>HDMI audio</td><td>Not working</td></tr>
+    <tr><td>System sleep</td><td>Not working; disabled</td></tr>
+    <tr><td>USB4, Thunderbolt</td><td>Not working</td></tr>
+    <tr><td>Neural Engine</td><td>Not supported</td></tr>
+  </tbody>
+</table></div>
+<p>Patches and build details are in the <a href="https://github.com/bande-linux/kernel#readme">kernel README</a>.</p>

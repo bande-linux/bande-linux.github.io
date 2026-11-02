@@ -1,17 +1,49 @@
-<section class="page-head">
-  <h1>Already on Debian testing?</h1>
-  <p class="lead">Add the Bande archive and install from apt. Updates then arrive with the rest of your system.</p>
-</section>
+<h1>Install on Debian testing</h1>
+<p>Bande is installed from its APT repository at <a href="https://bande-linux.github.io/apt/">bande-linux.github.io/apt</a>. It supports Debian testing only, on amd64 and arm64. It does not install on Debian 13 (trixie).</p>
 
-<section class="steps">
-  <h2>1. Add the Bande archive</h2>
+<h2>1. Add the repository</h2>
+<p>Download the keyring and source packages from the latest release of the apt repository and install them:</p>
 <pre><code>cd /tmp
 wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
      https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source.deb
-sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb
-sudo apt update</code></pre>
+sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb</code></pre>
+<p>This adds <code>/etc/apt/sources.list.d/bande.sources</code>:</p>
+<pre><code>Types: deb
+URIs: https://bande-linux.github.io/apt
+Suites: rolling
+Components: main apple
+Signed-By: /usr/share/keyrings/bande-archive-keyring.pgp</code></pre>
 
-  <h2>2. Install</h2>
-<pre><code>sudo apt install bande-desktop</code></pre>
-  <p>The whole system as on the install media: the desktop, its login screen, networking, sound and the everyday apps. If you already have a login screen such as GDM, apt asks which one to use. Add <code>--no-install-recommends</code> for just the desktop and a way to log in.</p>
-</section>
+<h2>2. Install the desktop</h2>
+<pre><code>sudo apt update
+sudo apt install bande-desktop</code></pre>
+<p>If another display manager is installed, debconf asks which one to start. To change it later, run <code>sudo dpkg-reconfigure greetd</code>. At login, select the <strong>Bande</strong> session.</p>
+
+<h2>What is installed</h2>
+<p><code>bande-desktop</code> depends on the compositor, shell, lock screen, session services, the desktop portal and PipeWire, and on a login manager: the Bande login window under greetd, or an existing one.</p>
+<p>It recommends:</p>
+<ul>
+  <li>The Bande login window, Files, Settings, screenshots, automount, the file chooser and the polkit agent.</li>
+  <li>NetworkManager, PackageKit, CUPS, GNOME Keyring, zram swap and systemd-oomd.</li>
+  <li>The Bande apps Terminal, Software, Package Installer and Activity Monitor.</li>
+  <li>From Debian: Firefox ESR, Text Editor, Loupe, Papers, Showtime and Calculator.</li>
+  <li><code>bande-apt-source</code>, so the system follows Bande releases.</li>
+</ul>
+<p>For the desktop, a login manager and sound only:</p>
+<pre><code>sudo apt install --no-install-recommends bande-desktop</code></pre>
+<p>Mail and Calendar are not recommended. Install them separately:</p>
+<pre><code>sudo apt install bande-mail bande-calendar</code></pre>
+
+<h2>Updates</h2>
+<p>Updates come with the rest of the system:</p>
+<pre><code>sudo apt update
+sudo apt upgrade</code></pre>
+<p>Settings &gt; Software Update does the same.</p>
+
+<h2>Removal</h2>
+<pre><code>sudo apt purge bande-desktop
+sudo apt autoremove
+sudo apt purge bande-apt-source bande-archive-keyring</code></pre>
+
+<h2>Signing key</h2>
+<p>The archive key and its fingerprint are on the <a href="https://bande-linux.github.io/apt/">repository page</a>. If <code>apt update</code> reports a signature error after a key change, repeat step 1.</p>

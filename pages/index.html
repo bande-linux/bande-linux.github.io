@@ -1,43 +1,47 @@
-<section class="hero">
-  <h1>A calm, finished desktop for Linux.</h1>
-  <p class="lead">Bande is its own desktop: compositor, shell, apps and session services, written in Rust and pure Wayland. It ships as a rolling distribution on Debian testing, for the Mac mini M2 and for PCs.</p>
-  <p class="actions">
-    <a class="button" href="/download/">Download</a>
-    <a class="button quiet" href="/debian/">Already on Debian testing?</a>
-  </p>
-  <p class="note">Bande is early and not yet a daily driver.</p>
-</section>
+<h1>Bande</h1>
+<p>Bande is a desktop environment for Debian testing on amd64 and arm64. It has its own Wayland compositor, shell, session services and applications, written in Rust. The Apple Mac mini M2 is the primary hardware target.</p>
+<p>Bande is in early development. It is not yet suitable as a main system.</p>
 
-<section class="shots">
-  <figure class="wide">
-    <img src="/img/files.png" width="900" height="526" alt="Files in column view, previewing a picture">
-    <figcaption>Files</figcaption>
-  </figure>
-  <figure class="tall">
-    <img src="/img/taskbar.png" width="344" height="720" alt="The taskbar with the app menu, running apps, Trash, workspaces, status and clock">
-    <figcaption>The taskbar</figcaption>
-  </figure>
-  <figure class="wide">
-    <img src="/img/settings-dark.png" width="900" height="720" alt="Settings, Appearance page in dark mode">
-    <figcaption>Settings, in dark mode</figcaption>
-  </figure>
-  <figure class="wide">
-    <img src="/img/lock.png" width="1024" height="768" alt="The lock screen with the clock and a password field">
-    <figcaption>Lock screen</figcaption>
-  </figure>
-</section>
+<h2>Requirements</h2>
+<ul>
+  <li>Debian testing, amd64 or arm64.</li>
+  <li>Debian 13 (trixie) and other stable releases are not supported. The packages are built against the C library in testing and do not install on stable.</li>
+  <li>Wayland only. There is no X11 or XWayland, so X11-only programs do not run.</li>
+</ul>
 
-<section class="points">
-  <div>
-    <h2>Rolling on Debian testing</h2>
-    <p>Debian's packages and kernel, with Bande on top. Everything updates through apt.</p>
-  </div>
-  <div>
-    <h2>Made for the Mac mini M2</h2>
-    <p>Installed from macOS next to it, with a kernel carrying the Apple Silicon support.</p>
-  </div>
-  <div>
-    <h2>And for PCs</h2>
-    <p>A standard Debian installer for amd64 and arm64 UEFI machines.</p>
-  </div>
-</section>
+<h2>Installation</h2>
+<ul>
+  <li><a href="/debian/">Install on Debian testing</a> from the Bande APT repository.</li>
+  <li><a href="/mac/">Mac mini M2</a>: kernel and hardware status.</li>
+  <li><a href="/download/">Install media</a>: not published yet.</li>
+</ul>
+
+<h2>Current releases</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Package</th><th>Version</th><th>Contents</th></tr></thead>
+  <tbody>
+    <tr><td><code>bande-desktop</code></td><td>0.1.1</td><td>Compositor, shell, lock screen, login window, Files, Settings, session services</td></tr>
+    <tr><td><code>bande-terminal</code></td><td>0.1.1</td><td>Terminal</td></tr>
+    <tr><td><code>bande-monitor</code></td><td>0.1.0</td><td>Activity Monitor</td></tr>
+    <tr><td><code>bande-software</code></td><td>0.1.0</td><td>Software</td></tr>
+    <tr><td><code>bande-installer</code></td><td>0.1.0</td><td>Package Installer for <code>.deb</code> files</td></tr>
+    <tr><td><code>bande-mail</code></td><td>0.1.0</td><td>Mail</td></tr>
+    <tr><td><code>bande-calendar</code></td><td>0.1.0</td><td>Calendar</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Source code</h2>
+<ul>
+  <li><a href="https://github.com/bande-linux/desktop">desktop</a>: the desktop environment and <code>bande-desktop</code></li>
+  <li><a href="https://github.com/bande-linux/apps">apps</a>: Terminal, Activity Monitor, Software, Package Installer, Mail, Calendar</li>
+  <li><a href="https://github.com/bande-linux/apt">apt</a>: the APT repository</li>
+  <li><a href="https://github.com/bande-linux/kernel">kernel</a>: Debian's kernel with the Mac mini M2 patches</li>
+  <li><a href="https://github.com/bande-linux/web">web</a>: the web engine for the Browser app (not released)</li>
+</ul>
+
+<h2>Documentation</h2>
+<ul>
+  <li><a href="https://github.com/bande-linux/desktop/blob/main/docs/README.md">Documentation index</a></li>
+  <li><a href="https://github.com/bande-linux/desktop/blob/main/docs/architecture/overview.md">Architecture overview</a></li>
+  <li><a href="https://github.com/bande-linux/desktop/blob/main/docs/parity.md">Feature status</a>, area by area</li>
+</ul>

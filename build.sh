@@ -4,6 +4,7 @@
 # With a file, it is used instead of the GitHub API, and the release's assets
 # are read from the assets/ directory next to it.
 set -euo pipefail
+export LC_ALL=C.UTF-8
 
 here=$(cd "$(dirname "$0")" && pwd)
 out=${OUT:-$here/_site}
@@ -90,14 +91,10 @@ pretty_date() {
 
 card() {
     local title=$1 for=$2 file=$3 steps=$4
+    [ -n "$file" ] || return 0
     echo '<article class="card">'
     echo "  <h2>$title</h2>"
-    echo "  <p class=\"for\">$for</p>"
-    if [ -z "$file" ]; then
-        echo '  <p class="soon">Coming soon.</p>'
-        echo '</article>'
-        return
-    fi
+    echo "  <p>$for</p>"
     local sha=${digest[$file]}
     [ "$sha" = - ] && sha='see the release page'
     cat <<EOF
@@ -115,7 +112,7 @@ EOF
 
 rm -rf "$out"
 mkdir -p "$out"
-cp -r "$here/style.css" "$here/img" "$out/"
+cp "$here/style.css" "$out/"
 touch "$out/.nojekyll"
 
 mac_zip=$(find_asset 'bande-os-apple-*.zip')
@@ -145,36 +142,42 @@ fi
 sed "s|@INSTALLER_BASE@|$installer_base|" "$here/install" > "$out/install"
 
 if [ -n "$tag" ]; then
-    echo "  <p class=\"lead\">Release <a href=\"$(html "$release_url")\">$(html "$tag")</a>, built $(pretty_date "$date"). New media come out every week; an installed system updates itself through apt.</p>" > "$work/release.html"
+    echo "<p>Release <a href=\"$(html "$release_url")\">$(html "$tag")</a>, built $(pretty_date "$date"). An installed system is updated through apt.</p>" > "$work/release.html"
 else
-    echo '  <p class="lead">Coming soon. The first install media are not published yet; this page lists them as soon as they are.</p>' > "$work/release.html"
+    echo '<p>No install media are published yet.</p>' > "$work/release.html"
 fi
 
 pc_steps='  <ol>
-    <li>Write the ISO to a USB stick with any image writer, such as GNOME Disks, balenaEtcher or Rufus.</li>
-    <li>Boot the machine from the stick in UEFI mode.</li>
-    <li>The Debian installer sets up the disk and installs Bande.</li>
+    <li>Write the ISO to a USB drive.</li>
+    <li>Boot the machine from the drive in UEFI mode.</li>
+    <li>The Debian installer partitions the disk and installs Bande.</li>
   </ol>'
 
 {
-    card 'Mac mini M2' 'Apple Silicon Mac mini (2023), installed from macOS next to it.' "$mac_zip" "  <ol>
+    card 'Mac mini M2' 'Mac mini M2 (2023). Installed from macOS; macOS stays installed.' "$mac_zip" "  <ol>
     <li>In macOS 13.5 or later, open Terminal and run:</li>
   </ol>
   <pre><code>curl -L $site/install | sh</code></pre>
   <ol start=\"2\">
-    <li>Follow the installer. It makes room next to macOS and downloads this image by itself.</li>
-    <li>Hold the power button at startup to choose Bande.</li>
+    <li>Follow the installer. It resizes the macOS partition and downloads this image.</li>
+    <li>To start Bande, hold the power button at startup and select it.</li>
   </ol>"
-    card 'PC' 'amd64 (x86-64) machines with UEFI.' "$amd64_iso" "$pc_steps"
-    card 'arm64' 'arm64 UEFI machines other than Macs.' "$arm64_iso" "$pc_steps"
-} > "$work/cards.html"
+    card 'amd64' 'x86-64 machines with UEFI.' "$amd64_iso" "$pc_steps"
+    card 'arm64' 'arm64 machines with UEFI, other than Macs.' "$arm64_iso" "$pc_steps"
+} > "$work/cards.tmp"
+if [ -s "$work/cards.tmp" ]; then
+    { echo '<section class="cards">'; cat "$work/cards.tmp"; echo '</section>'; } > "$work/cards.html"
+else
+    : > "$work/cards.html"
+fi
 
 fill "$here/pages/download.html" @RELEASE@ "$work/release.html" > "$work/download.tmp"
 fill "$work/download.tmp" @CARDS@ "$work/cards.html" > "$work/download.html"
 
 render HOME 'Bande' "$here/pages/index.html" "$out/index.html"
 render DOWNLOAD 'Download Bande' "$work/download.html" "$out/download/index.html"
-render DEBIAN 'Bande on Debian testing' "$here/pages/debian.html" "$out/debian/index.html"
+render DEBIAN 'Install Bande on Debian testing' "$here/pages/debian.html" "$out/debian/index.html"
+render MAC 'Bande on the Mac mini M2' "$here/pages/mac.html" "$out/mac/index.html"
 
 if [ -n "$tag" ]; then
     echo "Built $out from $repo $tag"

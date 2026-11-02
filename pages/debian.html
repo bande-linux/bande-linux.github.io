@@ -11,8 +11,11 @@ sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb</code></pre>
 <pre><code>Types: deb
 URIs: https://bande-linux.github.io/apt
 Suites: rolling
-Components: main apple
+Components: main
 Signed-By: /usr/share/keyrings/bande-archive-keyring.pgp</code></pre>
+<p>From <code>bande-apt-source</code> 1.4, the <code>apple</code> component (the Mac mini kernel) is added automatically on Apple Silicon only, in <code>bande-apple.sources</code>. To add it yourself, or to remove it:</p>
+<pre><code>sudo cp /usr/share/bande-apt-source/bande-apple.sources /etc/apt/sources.list.d/
+sudo rm /etc/apt/sources.list.d/bande-apple.sources</code></pre>
 
 <h2>2. Install the desktop</h2>
 <pre><code>sudo apt update
@@ -26,12 +29,11 @@ sudo apt install bande-desktop</code></pre>
   <li>The Bande login window, Files, Settings, screenshots, automount, the file chooser and the polkit agent.</li>
   <li>NetworkManager, PackageKit, CUPS, GNOME Keyring, zram swap and systemd-oomd.</li>
   <li>The Bande apps Terminal, Software, Package Installer and Activity Monitor.</li>
-  <li>From Debian: Firefox ESR, Text Editor, Loupe, Papers, Showtime and Calculator.</li>
   <li><code>bande-apt-source</code>, so the system follows Bande releases.</li>
 </ul>
 <p>For the desktop, a login manager and sound only:</p>
 <pre><code>sudo apt install --no-install-recommends bande-desktop</code></pre>
-<p>Mail and Calendar are not recommended. Install them separately:</p>
+<p>No Debian apps are recommended; install a browser, viewers and editors from Software. Mail and Calendar are not recommended either. Install them separately:</p>
 <pre><code>sudo apt install bande-mail bande-calendar</code></pre>
 
 <h2>Updates</h2>

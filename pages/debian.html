@@ -7,15 +7,6 @@
 wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
      https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source.deb
 sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb</code></pre>
-<p>This adds <code>/etc/apt/sources.list.d/bande.sources</code>:</p>
-<pre><code>Types: deb
-URIs: https://bande-linux.github.io/apt
-Suites: rolling
-Components: main
-Signed-By: /usr/share/keyrings/bande-archive-keyring.pgp</code></pre>
-<p>From <code>bande-apt-source</code> 1.4, the <code>apple</code> component (the Mac mini kernel) is added automatically on Apple Silicon only, in <code>bande-apple.sources</code>. To add it yourself, or to remove it:</p>
-<pre><code>sudo cp /usr/share/bande-apt-source/bande-apple.sources /etc/apt/sources.list.d/
-sudo rm /etc/apt/sources.list.d/bande-apple.sources</code></pre>
 
 <h2>2. Install the desktop</h2>
 <pre><code>sudo apt update

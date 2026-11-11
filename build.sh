@@ -176,7 +176,7 @@ fill "$work/download.tmp" @CARDS@ "$work/cards.html" > "$work/download.html"
 
 render HOME 'Bande' "$here/pages/index.html" "$out/index.html"
 render DOWNLOAD 'Download Bande' "$work/download.html" "$out/download/index.html"
-render DEBIAN 'Install Bande on Debian testing' "$here/pages/debian.html" "$out/debian/index.html"
+render DEBIAN 'Install Bande on Debian 14' "$here/pages/debian.html" "$out/debian/index.html"
 render MAC 'Bande on the Mac mini M2' "$here/pages/mac.html" "$out/mac/index.html"
 
 if [ -n "$tag" ]; then

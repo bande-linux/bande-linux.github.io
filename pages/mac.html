@@ -2,15 +2,15 @@
 <p>Bande runs on the Apple Mac mini M2 (2023, J473) with Debian's kernel and the Bande patches for Apple hardware. Hardware support is incomplete. Other Apple Silicon machines are not supported.</p>
 
 <h2>Kernel</h2>
-<p>The <a href="https://github.com/bande-linux/kernel">kernel repository</a> builds Debian testing's <code>linux</code> source with the Bande patches as the <code>apple-arm64-16k</code> flavour. A new build follows each new kernel in testing. The packages are published in the <code>apple</code> component of the APT repository (arm64 only).</p>
+<p>The <a href="https://github.com/bande-linux/kernel">kernel repository</a> builds Debian forky's <code>linux</code> source with the Bande patches as the <code>apple-arm64-16k</code> flavour. A new build follows each new kernel in forky, including its security updates. The packages are published in the <code>apple</code> component of the APT repository (arm64 only).</p>
 <p><code>bande-os-apple</code> installs <code>bande-desktop</code> and this kernel, and pins Debian's own kernels, which do not run on this machine.</p>
 
 <h2>Installation</h2>
-<p>The Mac needs a boot chain installed from macOS. The installer for it is not published yet; see <a href="/download/">Download</a>. On a Mac mini M2 that already runs Debian testing, add the repository as described in <a href="/debian/">Install on Debian testing</a> (on the Mac it adds the <code>apple</code> component too), then run:</p>
+<p>The Mac needs a boot chain installed from macOS. The installer for it is not published yet; see <a href="/download/">Download</a>. On a Mac mini M2 that already runs Debian 14, add the repository as described in <a href="/debian/">Install on Debian 14</a> (on the Mac it adds the <code>apple</code> component too), then run:</p>
 <pre><code>sudo apt install bande-os-apple</code></pre>
 
 <h2>Hardware status</h2>
-<p>Status with the development kernel (7.3) in November 2026. The published kernel follows Debian testing and can lag behind.</p>
+<p>Status with the development kernel (7.3) in November 2026. The published kernel follows Debian forky and can lag behind.</p>
 <div class="table-wrap"><table>
   <thead><tr><th>Area</th><th>Status</th></tr></thead>
   <tbody>

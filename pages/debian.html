@@ -2,10 +2,11 @@
 <p>Bande is installed from its APT repository at <a href="https://bande-linux.github.io/apt/">bande-linux.github.io/apt</a>. It supports Debian 14 (forky), on amd64 and arm64. It does not install on Debian 13 (trixie).</p>
 
 <h2>1. Add the repository</h2>
-<p>Download the keyring and source packages from the latest release of the apt repository and install them:</p>
-<pre><code>wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
-     https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source.deb
-sudo apt install ./bande-archive-keyring.deb ./bande-apt-source.deb</code></pre>
+<p>Download the keyring and your Debian release's source package from the latest release of the apt repository and install them:</p>
+<pre><code>suite=$(. /etc/os-release && echo "$VERSION_CODENAME")
+wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
+     "https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source-$suite.deb"
+sudo apt install ./bande-archive-keyring.deb "./bande-apt-source-$suite.deb"</code></pre>
 
 <h2>2. Install the desktop</h2>
 <pre><code>sudo apt update

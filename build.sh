@@ -31,7 +31,7 @@ render() {
 
 rm -rf "$out"
 mkdir -p "$out"
-cp "$here/style.css" "$out/"
+cp -r "$here/style.css" "$here/fonts" "$out/"
 touch "$out/.nojekyll"
 
 render HOME 'Bande' "$here/pages/index.html" "$out/index.html"

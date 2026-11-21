@@ -115,9 +115,9 @@ else
 fi
 
 pc_steps='  <ol>
-    <li>Write the ISO to a USB drive.</li>
+    <li>Write the image to a USB drive.</li>
     <li>Boot the machine from the drive in UEFI mode.</li>
-    <li>The Debian installer partitions the disk and installs Bande.</li>
+    <li>In the live session, Recovery installs Bande on the internal disk.</li>
   </ol>'
 
 {

@@ -13,7 +13,7 @@ sudo apt install ./bande-archive-keyring.deb "./bande-apt-source-$suite.deb"</co
 <h2>2. Install the desktop</h2>
 <pre><code>sudo apt update
 sudo apt install bande-desktop</code></pre>
-<p>This installs the Bande desktop: the compositor, shell and lock screen, the Bande login window under greetd, PipeWire and the Bande apps. If another display manager is installed, debconf asks which one to start. To change it later, run <code>sudo dpkg-reconfigure greetd</code>. At login, select the <strong>Bande</strong> session. Updates arrive with <code>sudo apt upgrade</code>.</p>
+<p>This installs the Bande desktop: the compositor, shell and lock screen, the Bande login window under greetd and PipeWire, and recommends the Bande apps. If another display manager is installed, debconf asks which one to start. To change it later, run <code>sudo dpkg-reconfigure greetd</code>. At login, select the <strong>Bande</strong> session. Updates arrive with <code>sudo apt upgrade</code>.</p>
 
 <h2>Remove</h2>
 <pre><code>sudo apt purge bande-apt-source bande-archive-keyring</code></pre>

@@ -1,19 +1,17 @@
 <h1>Bande</h1>
-<p>Bande is a desktop environment for Debian 14 (forky) on amd64 and arm64. It has its own Wayland compositor, shell, session services and applications, written in Rust.</p>
-<p>Bande is in early development. It is not yet suitable as a main system.</p>
+<p>Bande is a Wayland desktop environment for Debian, written in Rust. It has its own compositor, shell, session services and applications. It runs on amd64 and arm64.</p>
+<p>Bande targets Debian 14 (forky). It follows forky through Debian testing and aims to be ready when forky is released as stable. It is in early development and not yet suitable as a main system.</p>
 
 <h2>Requirements</h2>
 <ul>
-  <li>Debian 14 (forky), amd64 or arm64.</li>
-  <li>Debian 13 (trixie) and older releases are not supported. The packages are built against forky's C library and do not install on older releases.</li>
+  <li>Debian 14 (forky), amd64 or arm64. Debian 13 (trixie) and older releases are not supported.</li>
   <li>Wayland only. There is no X11 or XWayland, so X11-only programs do not run.</li>
 </ul>
 
 <h2>Installation</h2>
 <ul>
   <li><a href="/debian/">Install on Debian 14</a> from the Bande APT repository.</li>
-  <li><a href="/mac/">Mac mini M2</a>: kernel and hardware status.</li>
-  <li><a href="/download/">Install media</a>: not published yet.</li>
+  <li><a href="/download/">Install media</a> for amd64 and arm64.</li>
 </ul>
 
 <h2>Source code</h2>
@@ -21,7 +19,6 @@
   <li><a href="https://github.com/bande-linux/desktop">desktop</a>: the desktop environment and <code>bande-desktop</code></li>
   <li><a href="https://github.com/bande-linux/apps">apps</a>: Terminal, Activity Monitor, Software, Package Installer, Mail, Calendar</li>
   <li><a href="https://github.com/bande-linux/apt">apt</a>: the APT repository</li>
-  <li><a href="https://github.com/bande-linux/kernel">kernel</a>: Debian's kernel with the Mac mini M2 patches</li>
   <li><a href="https://github.com/bande-linux/web">web</a>: the web engine for the Browser app (not released)</li>
 </ul>
 

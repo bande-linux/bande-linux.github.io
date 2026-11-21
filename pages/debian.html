@@ -1,17 +1,22 @@
 <h1>Install on Debian 14</h1>
-<p>Bande is installed from its APT repository at <a href="https://bande-linux.github.io/apt/">bande-linux.github.io/apt</a>. It supports Debian 14 (forky), on amd64 and arm64. It does not install on Debian 13 (trixie).</p>
+<p>Bande is installed from its APT repository at <a href="https://bande-linux.github.io/apt/">bande-linux.github.io/apt</a>. It supports Debian 14 (forky) on amd64 and arm64. The packages are built against forky and do not install on Debian 13 (trixie).</p>
 
 <h2>1. Add the repository</h2>
 <p>Download the keyring and your Debian release's source package from the latest release of the apt repository and install them:</p>
-<pre><code>suite=$(. /etc/os-release && echo "$VERSION_CODENAME")
+<pre><code>cd /tmp
+suite=$(. /etc/os-release && echo "$VERSION_CODENAME")
 wget https://github.com/bande-linux/apt/releases/latest/download/bande-archive-keyring.deb \
      "https://github.com/bande-linux/apt/releases/latest/download/bande-apt-source-$suite.deb"
 sudo apt install ./bande-archive-keyring.deb "./bande-apt-source-$suite.deb"</code></pre>
+<p>This adds <code>/etc/apt/sources.list.d/bande.sources</code> for the <code>main</code> component.</p>
 
 <h2>2. Install the desktop</h2>
 <pre><code>sudo apt update
 sudo apt install bande-desktop</code></pre>
-<p>If another display manager is installed, debconf asks which one to start. To change it later, run <code>sudo dpkg-reconfigure greetd</code>. At login, select the <strong>Bande</strong> session.</p>
+<p>If another display manager is installed, debconf asks which one to start. To change it later, run <code>sudo dpkg-reconfigure greetd</code>. At login, select the <strong>Bande</strong> session. Updates arrive with <code>sudo apt upgrade</code>.</p>
+
+<h2>Remove</h2>
+<pre><code>sudo apt purge bande-apt-source bande-archive-keyring</code></pre>
 
 <h2>Signing key</h2>
 <p>The archive key and its fingerprint are on the <a href="https://bande-linux.github.io/apt/">repository page</a>. If <code>apt update</code> reports a signature error after a key change, repeat step 1.</p>

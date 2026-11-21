@@ -15,7 +15,7 @@ have an `apt/` directory.
 
 It reads the newest release of `bande-linux/images` with `gh api` (set `IMAGES_REPO` to read
 another repository) and fills in the download page. With no release the page says that no media are published.
-To render a fake release, pass a release JSON; its assets are read from `assets/` next to it:
+To render a fake release, pass a release JSON:
 
 ```bash
 OUT=$PWD/_fixture ./build.sh tests/release.json
@@ -27,24 +27,11 @@ Preview with `python3 -m http.server -d _site`.
 
 | Asset | Used for |
 |---|---|
-| `bande-os-apple-<date>.zip` | Mac mini M2 card; the installer downloads it |
-| `installer-<version>.tar.gz` | the Mac installer that `install` downloads |
-| `installer_data.json` | served at `/installer_data.json`, with `package` made an absolute release URL |
 | `bande-os-<date>-amd64.iso` | amd64 card |
 | `bande-os-<date>-arm64.iso` | arm64 card |
 
-Sizes and SHA256 come from the release's asset metadata. The Mac card is left out until
-the zip, the installer tarball and `installer_data.json` are all in the same release.
-
-## The Mac bootstrap
-
-`install` is `installer/scripts/bootstrap.sh` with the hosted URLs. `build.sh` sets
-`INSTALLER_BASE` to the release's download URL and writes the installer version to
-`/installer/latest`, so it always matches the image it serves:
-
-```bash
-curl -L https://bande-linux.github.io/install | sh
-```
+Sizes and SHA256 come from the release's asset metadata. A card is left out when its ISO is
+not in the release.
 
 ## Deploy
 

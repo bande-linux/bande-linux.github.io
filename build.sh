@@ -1,15 +1,13 @@
 #!/bin/bash
 # Renders the site into _site/ from the newest bande-linux/images release.
 # Usage: build.sh [release.json]
-# With a file, it is used instead of the GitHub API, and the release's assets
-# are read from the assets/ directory next to it.
+# With a file, it is used instead of the GitHub API.
 set -euo pipefail
 export LC_ALL=C.UTF-8
 
 here=$(cd "$(dirname "$0")" && pwd)
 out=${OUT:-$here/_site}
 repo=${IMAGES_REPO:-bande-linux/images}
-site=https://bande-linux.github.io
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 
@@ -49,14 +47,6 @@ find_asset() {
         # shellcheck disable=SC2254
         case $name in $1) echo "$name"; return ;; esac
     done
-}
-
-fetch_asset() {
-    if [ -n "$fixture" ]; then
-        cp "$(dirname "$fixture")/assets/$1" "$2"
-    else
-        gh release download "$tag" -R "$repo" -p "$1" -O "$2"
-    fi
 }
 
 html() {
@@ -115,31 +105,8 @@ mkdir -p "$out"
 cp "$here/style.css" "$out/"
 touch "$out/.nojekyll"
 
-mac_zip=$(find_asset 'bande-os-apple-*.zip')
 amd64_iso=$(find_asset 'bande-os-*-amd64.iso')
 arm64_iso=$(find_asset 'bande-os-*-arm64.iso')
-installer=$(find_asset 'installer-*.tar.gz')
-installer_data=$(find_asset installer_data.json)
-
-installer_base=''
-if [ -n "$mac_zip" ] && [ -n "$installer" ] && [ -n "$installer_data" ]; then
-    installer_base=https://github.com/$repo/releases/download/$tag
-    version=${installer#installer-}
-    mkdir -p "$out/installer"
-    echo "${version%.tar.gz}" > "$out/installer/latest"
-    fetch_asset "$installer_data" "$work/installer_data.json"
-    python3 -I -c '
-import json, sys
-data = json.load(open(sys.argv[1]))
-for os in data["os_list"]:
-    if not os["package"].startswith("http"):
-        os["package"] = sys.argv[2] + "/" + os["package"]
-json.dump(data, sys.stdout, indent=4)
-' "$work/installer_data.json" "$installer_base" > "$out/installer_data.json"
-else
-    mac_zip=''
-fi
-sed "s|@INSTALLER_BASE@|$installer_base|" "$here/install" > "$out/install"
 
 if [ -n "$tag" ]; then
     echo "<p>Release <a href=\"$(html "$release_url")\">$(html "$tag")</a>, built $(pretty_date "$date"). An installed system is updated through apt.</p>" > "$work/release.html"
@@ -154,16 +121,8 @@ pc_steps='  <ol>
   </ol>'
 
 {
-    card 'Mac mini M2' 'Mac mini M2 (2023). Installed from macOS; macOS stays installed.' "$mac_zip" "  <ol>
-    <li>In macOS 13.5 or later, open Terminal and run:</li>
-  </ol>
-  <pre><code>curl -L $site/install | sh</code></pre>
-  <ol start=\"2\">
-    <li>Follow the installer. It resizes the macOS partition and downloads this image.</li>
-    <li>To start Bande, hold the power button at startup and select it.</li>
-  </ol>"
-    card 'amd64' 'x86-64 machines with UEFI.' "$amd64_iso" "$pc_steps"
-    card 'arm64' 'arm64 machines with UEFI, other than Macs.' "$arm64_iso" "$pc_steps"
+    card 'amd64' 'amd64 machines with UEFI.' "$amd64_iso" "$pc_steps"
+    card 'arm64' 'arm64 machines with UEFI.' "$arm64_iso" "$pc_steps"
 } > "$work/cards.tmp"
 if [ -s "$work/cards.tmp" ]; then
     { echo '<section class="cards">'; cat "$work/cards.tmp"; echo '</section>'; } > "$work/cards.html"
@@ -177,7 +136,6 @@ fill "$work/download.tmp" @CARDS@ "$work/cards.html" > "$work/download.html"
 render HOME 'Bande' "$here/pages/index.html" "$out/index.html"
 render DOWNLOAD 'Download Bande' "$work/download.html" "$out/download/index.html"
 render DEBIAN 'Install Bande on Debian 14' "$here/pages/debian.html" "$out/debian/index.html"
-render MAC 'Bande on the Mac mini M2' "$here/pages/mac.html" "$out/mac/index.html"
 
 if [ -n "$tag" ]; then
     echo "Built $out from $repo $tag"
